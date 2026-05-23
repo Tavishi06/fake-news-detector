@@ -11,7 +11,7 @@ async function checkNews() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/api/predict", {
+        const response = await fetch("https://fake-news-detector-2-lqrc.onrender.com/predict", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
