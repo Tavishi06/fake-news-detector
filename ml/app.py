@@ -1,43 +1,36 @@
 from flask import Flask, request, jsonify
-import pickle
-import os
+from flask_cors import CORS
+import joblib
 
 app = Flask(__name__)
+CORS(app)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Load model & vectorizer
+model = joblib.load("../model.pkl")
+vectorizer = joblib.load("../vectorizer.pkl")
 
-model = pickle.load(open(os.path.join(BASE_DIR, "model.pkl"), "rb"))
-vectorizer = pickle.load(open(os.path.join(BASE_DIR, "vectorizer.pkl"), "rb"))
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    data = request.get_json()
+    text = data["text"]
+
+    # Transform & predict
+    X = vectorizer.transform([text])
+    prediction = model.predict(X)[0]
+
+    # Convert to readable label
+    label = "FAKE" if prediction == 0 else "REAL"
+
+    return jsonify({
+        "prediction": label
+    })
+
 
 @app.route("/")
 def home():
     return "Fake News API Running"
 
-@app.route("/predict", methods=["POST"])
-def predict():
-
-    try:
-        data = request.get_json()
-
-        text = data["text"]
-
-        transformed_text = vectorizer.transform([text])
-
-        prediction = model.predict(transformed_text)[0]
-
-        result = "Real" if prediction == 1 else "Fake"
-
-        return jsonify({
-            "prediction": result
-        })
-
-    except Exception as e:
-
-        print("Flask Error:", str(e))
-
-        return jsonify({
-            "error": str(e)
-        }), 500
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(debug=True)
