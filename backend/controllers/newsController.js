@@ -1,35 +1,29 @@
 const axios = require("axios");
 
 const predictNews = async (req, res) => {
+  try {
+    const { text } = req.body;
 
-    try {
+    console.log("Received text:", text);
 
-        const { text } = req.body;
+    const flaskResponse = await axios.post(
+      "https://fake-news-ml-kpt9.onrender.com/predict",
+      {
+        text: text
+      }
+    );
 
-        console.log("Received text:", text);
+    console.log("Flask response:", flaskResponse.data);
 
-        const flaskResponse = await axios.post(
-            "http://127.0.0.1:5000/predict",
-            {
-                text: text
-            }
-        );
+    res.json(flaskResponse.data);
 
-        console.log("Flask response:", flaskResponse.data);
+  } catch (error) {
+    console.log("Backend Error:", error.message);
 
-        res.json(flaskResponse.data);
-
-    }
-    catch(error) {
-
-        console.log("Backend Error:", error.message);
-
-        res.status(500).json({
-            error: "Prediction failed"
-        });
-    }
+    res.status(500).json({
+      error: "Prediction failed"
+    });
+  }
 };
 
-module.exports = {
-    predictNews
-};
+module.exports = { predictNews };
