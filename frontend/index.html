@@ -1,26 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="background"></div>
+
     <div class="container">
-    
-      <h1>Fake News Detector</h1>
-    
-      <textarea id="newsInput"></textarea>
-    
-      <br><br>
-    
-      <button onclick="checkNews()">Check News</button>
-    
-      <p id="result"></p>
-    
+
+        <div class="top-section">
+            <h1>Fake News Detector</h1>
+            <p>
+                AI-powered system to identify whether news content is Real or Fake.
+            </p>
+        </div>
+
+        <div class="input-section">
+            <textarea
+                id="newsInput"
+                placeholder="Paste your news headline or article here..."
+            ></textarea>
+
+            <button onclick="checkNews()">
+                Analyze News
+            </button>
+        </div>
+
+        <div class="result-box" id="result">
+            Waiting for input...
+        </div>
+
     </div>
-  </body>
+
+    <script src="script.js"></script>
+
+</body>
 </html>
