@@ -7,19 +7,23 @@ async function checkNews() {
         return;
     }
 
-    document.getElementById("result").innerText = "Analyzing with AI...";
+    document.getElementById("result").innerText =
+        "Analyzing with AI...";
 
     try {
 
-        const response = await fetch("https://fake-news-detector-2-lqrc.onrender.com/predict", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                text: news
-            })
-        });
+        const response = await fetch(
+            "https://fake-news-detector-2-lqrc.onrender.com/api/predict",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    text: news
+                })
+            }
+        );
 
         const data = await response.json();
 
@@ -29,9 +33,9 @@ async function checkNews() {
     }
     catch(error) {
 
+        console.log(error);
+
         document.getElementById("result").innerText =
             "Server connection error";
-
-        console.log(error);
     }
 }
