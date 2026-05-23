@@ -1,7 +1,4 @@
-# Company-Level UI Upgrade for Fake News Detector Replace your current `index.html` with this: ```html < !DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Fake News Detector</title><link rel="stylesheet" href="style.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"></head><body><div class="background"></div><div class="container"><div class="top-section"><h1>Fake News Detector</h1><p>AI-powered system to identify whether news content is Real or Fake. </p></div><div class="input-section"><textarea id="newsInput"
-placeholder="Paste your news headline or article here..."
-
-></textarea><button onclick="checkNews()">Analyze News </button></div><div class="result-box" id="result">Waiting for input... </div></div><script src="script.js"></script></body></html>``` --- Replace your current `style.css` with this: ```css * {
+css * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
