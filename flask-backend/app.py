@@ -17,7 +17,23 @@ def predict():
     data = request.json
     text = data.get("text")
 
+    # 🛑 safety check
+    if not text:
+        return jsonify({"error": "No text provided"}), 400
+
+    # convert text to vector
     vector = vectorizer.transform([text])
+
+    # prediction
     prediction = model.predict(vector)[0]
 
-    return jsonify({"prediction": str(prediction)})
+    # convert to readable label
+    label = "FAKE" if prediction == 0 else "REAL"
+
+    prob = model.predict_proba(vector)[0]
+    confidence = max(prob)
+
+    return jsonify({
+        "prediction": label,
+        "confidence": round(float(confidence), 2)
+    })
