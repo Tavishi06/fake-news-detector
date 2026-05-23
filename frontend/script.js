@@ -13,7 +13,7 @@ async function checkNews() {
     try {
 
         const response = await fetch(
-            "https://fake-news-detector-2-lqrc.onrender.com/api/predict",
+            "https://fake-news-ml-kpt9.onrender.com/api/predict",
             {
                 method: "POST",
                 headers: {
