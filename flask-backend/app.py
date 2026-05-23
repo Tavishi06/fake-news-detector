@@ -1,12 +1,22 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-model = joblib.load("model.pkl")
-vectorizer = joblib.load("vectorizer.pkl")
+# Load model and vectorizer from ml folder
+model_path = os.path.join(os.path.dirname(__file__), "..", "ml", "model.pkl")
+vectorizer_path = os.path.join(os.path.dirname(__file__), "..", "ml", "vectorizer.pkl")
+
+try:
+    model = joblib.load(model_path)
+    vectorizer = joblib.load(vectorizer_path)
+    print("✓ Model and vectorizer loaded successfully")
+except FileNotFoundError as e:
+    print(f"⚠ Error: {e}")
+    print("⚠ Make sure you have run ml/train.py first to generate model.pkl and vectorizer.pkl")
 
 @app.route("/")
 def home():
