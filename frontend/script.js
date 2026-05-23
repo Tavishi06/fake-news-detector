@@ -11,7 +11,7 @@ async function checkNews() {
 
     try {
 
-        const response = await fetch("https://your-backend-url.onrender.com/api/predict", {
+        const response = await fetch("http://localhost:3000/api/predict", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

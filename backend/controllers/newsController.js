@@ -1,33 +1,35 @@
 const axios = require("axios");
 
 const predictNews = async (req, res) => {
-  try {
-    const { text } = req.body;
 
-    console.log("Received text:", text);
+    try {
 
-    const response = await axios.post(
-      "http://127.0.0.1:5000/predict",
-      {
-        text: text,
-      }
-    );
+        const { text } = req.body;
 
-    console.log("Flask response:", response.data);
+        console.log("Received text:", text);
 
-    res.json({
-      prediction: response.data.prediction,
-    });
+        const flaskResponse = await axios.post(
+            "http://127.0.0.1:5000/predict",
+            {
+                text: text
+            }
+        );
 
-  } catch (error) {
-    console.log("Backend Error:", error.message);
+        console.log("Flask response:", flaskResponse.data);
 
-    res.status(500).json({
-      error: "Prediction failed",
-    });
-  }
+        res.json(flaskResponse.data);
+
+    }
+    catch(error) {
+
+        console.log("Backend Error:", error.message);
+
+        res.status(500).json({
+            error: "Prediction failed"
+        });
+    }
 };
 
 module.exports = {
-  predictNews,
+    predictNews
 };

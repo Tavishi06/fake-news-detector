@@ -13,13 +13,22 @@ df = pd.read_csv(r"E:\fake news\dataset\FakeNewsNet.csv")
 df = df.dropna()
 
 # Text
-X = df["title"]
+X = (
+    df["title"].astype(str)
+    + " "
+    + df["source_domain"].astype(str)
+    + " "
+    + df["news_url"].astype(str)
+)
 
 # Labels
 y = df["real"]
 
 # Convert text
-vectorizer = TfidfVectorizer(stop_words="english")
+vectorizer = TfidfVectorizer(
+    stop_words="english",
+    max_df=0.7
+)
 
 X_vectorized = vectorizer.fit_transform(X)
 
@@ -32,7 +41,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Model
-model = LogisticRegression(max_iter=1000)
+model = LogisticRegression(max_iter=1000, class_weight="balanced")
 
 # Train
 model.fit(X_train, y_train)
