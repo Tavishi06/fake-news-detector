@@ -7,8 +7,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Load model and vectorizer from ml folder
-model_path = os.path.join(os.path.dirname(__file__), "..", "ml", "model.pkl")
-vectorizer_path = os.path.join(os.path.dirname(__file__), "..", "ml", "vectorizer.pkl")
+model_path = os.path.join(os.path.dirname(__file__), "model.pkl")
+vectorizer_path = os.path.join(os.path.dirname(__file__), "vectorizer.pkl")
 
 try:
     model = joblib.load(model_path)
