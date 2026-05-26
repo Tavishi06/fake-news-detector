@@ -1,4 +1,5 @@
 const axios = require("axios");
+const News = require("../models/News");
 
 const predictNews = async (req, res) => {
   try {
@@ -14,6 +15,13 @@ const predictNews = async (req, res) => {
     );
 
     console.log("Flask response:", flaskResponse.data);
+
+    // Save prediction to database
+    const news = new News({
+      text: text,
+      prediction: flaskResponse.data.prediction
+    });
+    await news.save();
 
     res.json(flaskResponse.data);
 
